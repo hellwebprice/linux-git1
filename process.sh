@@ -26,16 +26,20 @@ END {
 }'
 
 sort $1 | uniq | awk -F, '
-$2 ~ /holiday inn/, $12 != -1 {
-  country = tolower($7)
-  holiday_hotel_cleanliness[country] += $12
-  holiday_hotel_count[country]++
+$2 ~ /holiday inn/ {
+  if ($12 > 0) {
+    country = tolower($7)
+    holiday_hotel_cleanliness[country] += $12
+    holiday_hotel_count[country]++
+  }
 }
 
-$2 ~ /hilton/, $12 != -1 {
-  country = tolower($7)
-  hilton_hotel_cleanliness[country] += $12
-  hilton_hotel_count[country]++
+$2 ~ /hilton/ {
+  if ($12 > 0) {
+    country = tolower($7)
+    hilton_hotel_cleanliness[country] += $12
+    hilton_hotel_count[country]++
+  }
 }
 
 END {
