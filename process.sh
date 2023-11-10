@@ -1,8 +1,10 @@
 #!/bin/bash
 sort $1 | uniq | awk -F, '
-$18 != -1 {
-  total_rating += $18
-  hotel_with_rating_count++
+{
+  if ($18 != -1) {
+    total_rating += $18
+    hotel_with_rating_count++
+  }
 }
 
 END {
@@ -14,7 +16,7 @@ END {
 }'
 
 sort $1 | uniq | awk -F, '
-$7 != -1 {
+{
   country = tolower($7)
   hotel_number[country]++
 }
@@ -53,8 +55,10 @@ END {
 '
 
 awk -F, '
-$12 != -1, $18 != -1 {
-  print $12, $18
+{
+  if ($12 != -1 && $18 != -1) {
+    print $12, $18
+  }
 }' $1 > /tmp/plot_file.csv
 gnuplot << EOF
   set terminal png size 800,800
