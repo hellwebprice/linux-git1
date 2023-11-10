@@ -63,7 +63,7 @@ gnuplot << EOF
   set title "CLEANLINESS vs. OVERALL RATINGSOURCE"
   set output 'plot.png'
   set datafile separator " "
-  set fit quiet logfile '/dev/null'
+  set fit quiet
   f(x) = m*x + b
   fit f(x) '/tmp/plot_file.csv' using 2:1 via m, b
   plot '/tmp/plot_file.csv' using 2:1 with points title "", f(x) title "Linear regression"
